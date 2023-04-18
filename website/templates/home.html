@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Tool for esportsavezbih</title>
+    
+    <!-- Favicons -->
+    <link href="{{ url_for('static', filename='assets/esport_savez_logo.png') }}" rel="icon">
+    <link href="{{ url_for('static', filename='assets/esport_savez_logo.png') }}" rel="apple-touch-icon">
+
+    <!-- Bootstrap & Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS & JS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+          <!-- Start Navbar -->
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='assets/esport_savez_logo.png') }}" alt="Logo" width="60" height="60" class="d-inline-block align-top me-2">
+                <span id="nav-title" class="align-middle brand-text">Stream Tool za esportsavezbih</span>
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Naslovna</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Timovi</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Kamere</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <!-- End Navbar -->
+          <!-- Start First Card -->
+          <div class="col-sm-8">
+            <form method="POST">
+              <div class="card mt-3">
+                <div class="card-header">
+                  <h4>Match status & rezultat</h4>
+                </div>
+                <div class="card-body">
+                  <p class="small fst-italic">Dok unosite rezultat, drugo polje mora biti prazno da bi se uspješno promijenilo</p>
+
+                  <div class="mb-3">
+                    <label for="onedigit_score" class="form-label">One digit rezultat:</label>
+                    <input type="text" class="form-control" id="onedigit_score" name="onedigit_score" value="{{ onedigit_score }}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="twodigit_score" class="form-label">Two digit rezultat:</label>
+                    <input type="text" class="form-control" id="twodigit_score" name="twodigit_score" value="{{ twodigit_score }}">
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="match">Trenutni match/Sljedeći match:</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="match" id="trenutni" value="trenutni" {% if selected_match == 'trenutni' %}checked{% endif %}>
+                      <label class="form-check-label" for="trenutni">Trenutni match</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="match" id="sljedeci" value="sljedeci" {% if selected_match == 'sljedeci' %}checked{% endif %}>
+                      <label class="form-check-label" for="sljedeci">Sljedeći match</label>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            
+              <div class="card mt-3">
+                <div class="card-header">
+                  <h4>Timovi & naslovi</h4>
+                </div>
+                <div class="card-body">
+
+                  <div class="d-inline-block col-4 mb-3">
+                    <label for="team-1">Team 1:</label>
+                    <select class="form-select" name="team-1">
+                      <option value="prenos" {% if selected_team1 == 'prenos' %}selected {% endif %}>Prenos</option>
+                      <option value="evona" {% if selected_team1 == 'evona' %}selected {% endif %}>Evona</option>
+                      <option value="sum" {% if selected_team1 == 'sum' %}selected {% endif %}>SUM</option>
+                      <option value="nsoft" {% if selected_team1 == 'nsoft' %}selected {% endif %}>NSoft</option>
+                    </select>
+                  </div>
+                  <div class="d-inline-block col-4 mb-3">
+                    <label for="team-2">Team 2:</label>
+                    <select class="form-select" name="team-2">
+                      <option value="prenos" {% if selected_team2 == 'prenos' %}selected {% endif %}>Prenos</option>
+                      <option value="evona" {% if selected_team2 == 'evona' %}selected {% endif %}>Evona</option>
+                      <option value="sum" {% if selected_team2 == 'sum' %}selected {% endif %}>SUM</option>
+                      <option value="nsoft" {% if selected_team2 == 'nsoft' %}selected {% endif %}>NSoft</option>
+                    </select>
+                  </div>
+                  
+
+                  <div class="mb-3">
+                    <label for="input2" class="form-label">Naslov:</label>
+                    <input type="text" class="form-control" id="naslov" name="naslov" value="{{ naslov }}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="input3" class="form-label">Podnaslov:</label>
+                    <input type="text" class="form-control" id="podnaslov" name="podnaslov" value="{{ podnaslov }}">
+                  </div>
+
+                  <button class="btn btn-primary" name="uredi" id="uredi">Promjena</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- End First Card -->
+          <!-- Start Second Card -->
+          <div class="col-sm-4">
+            <div class="card mt-3">
+              <div class="card-header">
+                <h4>Postavi timer</h4>
+              </div>
+              <div class="card-body">
+                <p class="small fst-italic">Počinje odbrojavanje, obavezno unesite vrijeme u sekundama</p>
+
+                <form method="POST">
+                  <div class="mb-3">
+                    <label for="vrijeme_countdown" class="form-label">Vrijeme u sekundama:</label>
+                    <input type="number" class="form-control" id="vrijeme_countdown" name="vrijeme_countdown" >
+                  </div>
+                  <button class="btn btn-success" name="vrijeme_timer" id="vrijeme_timer">Promjena</button>
+                </form>
+              </div>
+            </div>
+          
+            <div class="card mt-3">
+              <div class="card-header">
+                <h4>Trenutno vrijeme</h4>
+              </div>
+              <div class="card-body">
+                <p class="small fst-italic">Promjena u trenutno vrijeme u formatu HH:mm</p>
+
+                <form method="POST">
+                  <button class="btn btn-warning" name="vrijeme_trenutno" id="vrijeme_trenutno">Promjena</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="card mt-3">
+              <div class="card-header">
+                <h4>Zaustavi oba timera</h4>
+              </div>
+              <div class="card-body">
+                <p class="small fst-italic">Zaustavlja oba timera, prikazuje se "00:00".</p>
+
+                <form method="POST">
+                  <button class="btn btn-danger" name="vrijeme_stop" id="vrijeme_stop">Zaustavi</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- End Second Card -->
+          <!-- Start Footer -->
+          <footer class="bg-light text-center footer-height" >
+            <div class="container">
+              <p>&copy; 2023 Mario Jonjić <a href="https://twitter.com/peanutwrldd" target="_blank">@peanutwrldd.</a> All rights reserved.</p>
+            </div>
+          </footer>
+          <!-- End Footer -->
+        </div>
+    </div>
+</body>
+</html>

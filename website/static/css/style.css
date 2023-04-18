@@ -1,0 +1,46 @@
+body {
+    font-family: "Open Sans", sans-serif;
+    background: #f6f9ff;
+    color: #444444;
+    background-image: url("../assets/bg_img.jpg");
+}
+
+.card {
+    margin-bottom: 30px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+}
+.card-body {
+    padding: 20px 20px 20px 20px;
+}
+.card-header {
+    background-color: #333;
+    padding: 5px 5px 5px 5px;
+}
+.card-header h4{
+    padding-left: 10px;
+    color: white;
+    margin-bottom: 0.1rem
+}
+.navbar-brand .brand-text {
+    display: inline-block;
+    margin-top: 12px; /* Change this value to move the text further down */
+}
+.footer-height {
+    max-height: 40px;
+    padding-top: 1rem!important;
+    padding-bottom: 2.5rem!important;
+}
+svg path {
+  fill: rgb(255, 0, 0);
+}
+@media (max-width: 768px) {
+    .navbar-brand img {
+      width: 40px;
+      height: 40px;
+    }
+    .navbar-brand #nav-title {
+      font-size: 0.95rem;
+    }
+  }
