@@ -26,7 +26,7 @@
             <div class="container-fluid">
               <a class="navbar-brand" href="#">
                 <img src="{{ url_for('static', filename='assets/esport_savez_logo.png') }}" alt="Logo" width="60" height="60" class="d-inline-block align-top me-2">
-                <span id="nav-title" class="align-middle brand-text">Stream Tool za esportsavezbih</span>
+                <span id="nav-title" class="align-middle brand-text">Stream tools za esportsavezbih</span>
               </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,10 +34,10 @@
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Naslovna</a>
+                    <a class="nav-link active" aria-current="page" href="/">Naslovna</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Timovi</a>
+                    <a class="nav-link" href="/teams">Timovi</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">Kamere</a>
@@ -52,18 +52,15 @@
             <form method="POST">
               <div class="card mt-3">
                 <div class="card-header">
-                  <h4>Match status & rezultat</h4>
+                  <h4>Postavke matcha</h4>
                 </div>
                 <div class="card-body">
-                  <p class="small fst-italic">Dok unosite rezultat, drugo polje mora biti prazno da bi se uspješno promijenilo</p>
 
                   <div class="mb-3">
-                    <label for="onedigit_score" class="form-label">One digit rezultat:</label>
-                    <input type="text" class="form-control" id="onedigit_score" name="onedigit_score" value="{{ onedigit_score }}">
-                  </div>
-                  <div class="mb-3">
-                    <label for="twodigit_score" class="form-label">Two digit rezultat:</label>
-                    <input type="text" class="form-control" id="twodigit_score" name="twodigit_score" value="{{ twodigit_score }}">
+                    <label for="score" class="form-label">Rezultat:</label>
+                    <div class="col-sm-2">
+                      <input type="text" class="form-control" id="score" name="score" value="{{ score }}">
+                    </div>
                   </div>
 
                   <div class="mb-3">
@@ -78,35 +75,22 @@
                     </div>
                   </div>
 
-                </div>
-              </div>
-            
-              <div class="card mt-3">
-                <div class="card-header">
-                  <h4>Timovi & naslovi</h4>
-                </div>
-                <div class="card-body">
-
                   <div class="d-inline-block col-4 mb-3">
                     <label for="team-1">Team 1:</label>
-                    <select class="form-select" name="team-1">
-                      <option value="prenos" {% if selected_team1 == 'prenos' %}selected {% endif %}>Prenos</option>
-                      <option value="evona" {% if selected_team1 == 'evona' %}selected {% endif %}>Evona</option>
-                      <option value="sum" {% if selected_team1 == 'sum' %}selected {% endif %}>SUM</option>
-                      <option value="nsoft" {% if selected_team1 == 'nsoft' %}selected {% endif %}>NSoft</option>
+                    <img src="" style="width: 50px; height: auto; margin-bottom: 10px;" alt="Team 1 Logo" id="team1-logo">
+                    <select class="form-select" name="team-1" id="team-1-select">
+                      {{ team1_options }}
                     </select>
                   </div>
+
                   <div class="d-inline-block col-4 mb-3">
                     <label for="team-2">Team 2:</label>
-                    <select class="form-select" name="team-2">
-                      <option value="prenos" {% if selected_team2 == 'prenos' %}selected {% endif %}>Prenos</option>
-                      <option value="evona" {% if selected_team2 == 'evona' %}selected {% endif %}>Evona</option>
-                      <option value="sum" {% if selected_team2 == 'sum' %}selected {% endif %}>SUM</option>
-                      <option value="nsoft" {% if selected_team2 == 'nsoft' %}selected {% endif %}>NSoft</option>
+                    <img src="" style="width: 50px; height: auto; margin-bottom: 10px;" alt="Team 1 Logo" id="team2-logo">
+                    <select class="form-select" name="team-2" id="team-2-select">
+                      {{ team2_options }}
                     </select>
                   </div>
                   
-
                   <div class="mb-3">
                     <label for="input2" class="form-label">Naslov:</label>
                     <input type="text" class="form-control" id="naslov" name="naslov" value="{{ naslov }}">
@@ -136,7 +120,7 @@
                     <label for="vrijeme_countdown" class="form-label">Vrijeme u sekundama:</label>
                     <input type="number" class="form-control" id="vrijeme_countdown" name="vrijeme_countdown" >
                   </div>
-                  <button class="btn btn-success" name="vrijeme_timer" id="vrijeme_timer">Promjena</button>
+                  <button type="button" class="btn btn-success" name="vrijeme_timer" id="vrijeme_timer">Promjena</button>
                 </form>
               </div>
             </div>
@@ -149,7 +133,7 @@
                 <p class="small fst-italic">Promjena u trenutno vrijeme u formatu HH:mm</p>
 
                 <form method="POST">
-                  <button class="btn btn-warning" name="vrijeme_trenutno" id="vrijeme_trenutno">Promjena</button>
+                  <button type="button" class="btn btn-warning" name="vrijeme_trenutno" id="vrijeme_trenutno">Promjena</button>
                 </form>
               </div>
             </div>
@@ -162,7 +146,7 @@
                 <p class="small fst-italic">Zaustavlja oba timera, prikazuje se "00:00".</p>
 
                 <form method="POST">
-                  <button class="btn btn-danger" name="vrijeme_stop" id="vrijeme_stop">Zaustavi</button>
+                  <button type="button" class="btn btn-danger" name="vrijeme_stop" id="vrijeme_stop">Zaustavi</button>
                 </form>
               </div>
             </div>
@@ -177,5 +161,37 @@
           <!-- End Footer -->
         </div>
     </div>
+
+    <script>
+      const team1Select = document.getElementById("team-1-select");
+      const team2Select = document.getElementById("team-2-select");
+      const team1Logo = document.getElementById("team1-logo");
+      const team2Logo = document.getElementById("team2-logo");
+      const teamsData = {{ teams_data | tojson }};
+  
+      team1Select.addEventListener("change", (event) => {
+          const selectedTeam1 = event.target.value;
+          const team1LogoSrc = "{{ url_for('static', filename='images/') }}" + `${selectedTeam1}_logo.png`;
+  
+          team1Logo.src = team1LogoSrc;
+      });
+
+      team2Select.addEventListener("change", (event) => {
+          const selectedTeam2 = event.target.value;
+          const team2LogoSrc = "{{ url_for('static', filename='images/') }}" + `${selectedTeam2}_logo.png`;
+  
+          team2Logo.src = team2LogoSrc;
+      });
+  
+      // Set the initial team logo based on the selected team
+      const selectedTeam1 = team1Select.value;
+      const team1LogoSrc = "{{ url_for('static', filename='images/') }}" + `${selectedTeam1}_logo.png`;
+      team1Logo.src = team1LogoSrc;
+
+      const selectedTeam2 = team2Select.value;
+      const team2LogoSrc = "{{ url_for('static', filename='images/') }}" + `${selectedTeam2}_logo.png`;
+      team2Logo.src = team2LogoSrc;
+  </script>
+  
 </body>
 </html>

@@ -36,6 +36,48 @@ document.addEventListener("DOMContentLoaded", () => {
         window.open("/stop", "_blank");
       });
     }
+
+    const uredi_button = document.getElementById('uredi');
+    if (uredi_button) {
+      uredi_button.addEventListener('click', function(event) {
+        if (!confirm("Jeste li sigurni da želite nastaviti?")) {
+          event.preventDefault();
+          return;
+        }
+      });
+    }
     
+    const remove_btn = document.querySelectorAll('.remove-btn')
+    if (remove_btn) {
+      remove_btn.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const value = this.getAttribute('data-value');
+          const removeTeam = confirm("Do you want to remove this team?");
+          if (removeTeam) {
+            fetch('/remove_team', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: value
+            })
+            .then(response => {
+              if (response.ok) {
+                location.reload();
+              } else {
+                throw new Error('Something went wrong');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+          }
+        });
+      });
+    }
+
   });
+
+
+
   
